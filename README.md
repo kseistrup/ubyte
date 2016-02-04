@@ -1,7 +1,7 @@
 # ubyte
 Pretty print characters in range 0‥255
 
-```sh
+```txt
 $ ubyte
        0123456789ABCDEF       0123456789ABCDEF
     00 ░░░░░░░░░░░░░░░░    80 ░░░░░░░░░░░░░░░░
@@ -12,6 +12,7 @@ $ ubyte
     50 PQRSTUVWXYZ[\]^_    D0 ÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
     60 `abcdefghijklmno    E0 àáâãäåæçèéêëìíîï
     70 pqrstuvwxyz{|}~░    F0 ðñòóôõö÷øùúûüýþÿ
+$
 ```
 nothing more, nothing less.
 
