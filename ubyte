@@ -31,8 +31,8 @@ except (ImportError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2016-02-04'
-__version__ = '1.0.1 ({})'.format(__revision__)
+__revision__ = '2016-02-05'
+__version__ = '1.0.2 ({})'.format(__revision__)
 __copyright__ = """\
 ubyte {}
 Copyright © 1999-2016 Klaus Alexander Seistrup <klaus@seistrup.dk>
@@ -50,7 +50,7 @@ def leader(idx):
 
 
 def itoa(i):
-    """Convert an int to the corresponding ISO-8859-15 char"""
+    """Convert an int to the corresponding unicode char"""
     char = chr(i)
     return char if char.isprintable() else '\N{LIGHT SHADE}'
 
