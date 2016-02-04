@@ -1,6 +1,5 @@
 # ubyte
-Pretty print characters in range 0‥255
-
+Pretty print characters in range 0‥255:
 ```txt
 $ ubyte
        0123456789ABCDEF       0123456789ABCDEF
@@ -14,6 +13,6 @@ $ ubyte
     70 pqrstuvwxyz{|}~░    F0 ðñòóôõö÷øùúûüýþÿ
 $
 ```
-nothing more, nothing less.
+Nothing more, nothing less.
 
 Be happy :smile:
