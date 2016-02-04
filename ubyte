@@ -32,7 +32,7 @@ except (ImportError, NameError, Error):
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
 __revision__ = '2016-02-04'
-__version__ = '1.0.0 ({})'.format(__revision__)
+__version__ = '1.0.1 ({})'.format(__revision__)
 __copyright__ = """\
 ubyte {}
 Copyright © 1999-2016 Klaus Alexander Seistrup <klaus@seistrup.dk>
