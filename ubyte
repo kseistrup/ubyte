@@ -51,9 +51,7 @@ def leader(idx):
 
 def itoa(i):
     """Convert an int to the corresponding ISO-8859-15 char"""
-    # The int will always be in the range {0‥255} so the bytesex
-    # doesn't matter
-    char = i.to_bytes(1, byteorder='big').decode('iso-8859-15')
+    char = chr(i)
     return char if char.isprintable() else '\N{LIGHT SHADE}'
 
 
