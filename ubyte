@@ -1,0 +1,96 @@
+#!/usr/bin/python3
+# -*- mode: python; coding: utf-8 -*-
+"""
+Usage: ubyte [OPTIONS]
+
+optional arguments:
+  -h, --help       show this help message and exit
+  -v, --version    show version information and exit
+  -c, --copyright  show copying policy and exit
+"""
+##############################################################################
+# This program is free software; you can redistribute it and/or modify it    #
+# under the terms of the GNU General Public License as published by the Free #
+# Software Foundation; either version 3 of the License, or (at your option)  #
+# any later version.                                                         #
+#                                                                            #
+# This program is distributed in the hope that it will be useful, but with-  #
+# out any warranty; without even the implied warranty of merchantability or  #
+# fitness for a particular purpose.  See the GNU General Public License for  #
+# more details.  <http://gplv3.fsf.org/>                                     #
+##############################################################################
+
+import sys
+import pathlib
+import argparse
+
+try:
+    from locale import (Error, setlocale, LC_ALL)
+    _ = setlocale(LC_ALL, '')
+except (ImportError, NameError, Error):
+    pass
+
+__author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
+__revision__ = '2016-02-04'
+__version__ = '1.0.0 ({})'.format(__revision__)
+__copyright__ = """\
+ubyte {}
+Copyright © 1999-2016 Klaus Alexander Seistrup <klaus@seistrup.dk>
+
+This is free software; see the source for copying conditions.  There is no
+warranty; not even for merchantability or fitness for a particular purpose.\
+""".format(__version__)
+
+(BOLD, PLAIN) = ('\x1b[1m', '\x1b[0m') if sys.stdout.isatty() else ('', '')
+
+
+def leader(idx):
+    """Construct a row leader"""
+    return '{}{:02X}{}'.format(BOLD, idx, PLAIN)
+
+
+def itoa(i):
+    """Convert an int to the corresponding ISO-8859-15 char"""
+    # The int will always be in the range {0‥255} so the bytesex
+    # doesn't matter
+    char = i.to_bytes(1, byteorder='big').decode('iso-8859-15')
+    return char if char.isprintable() else '\N{LIGHT SHADE}'
+
+
+def ubyte():
+    """Show a fancy character table {0‥255}"""
+    print('\t   {}0123456789ABCDEF{}'.format(BOLD, PLAIN) * 2)
+    for upper in range(0x00, 0x80, 0x10):
+        (lolead, loline) = (leader(upper), [])
+        (uplead, upline) = (leader(upper + 0x80), [])
+        for lower in range(0x10):
+            loline.append(itoa(upper + lower))
+            upline.append(itoa(upper + lower + 0x80))
+        print('\t{} {}'.format(lolead, ''.join(loline)), end='')
+        print('\t{} {}'.format(uplead, ''.join(upline)))
+
+
+def main(progname='ubyte'):
+    """Main entry point"""
+
+    parser = argparse.ArgumentParser(
+        prog=progname,
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    parser.add_argument('-v', '--version', action='version',
+                        version='%(prog)s/' + __version__,
+                        help='show version information and exit')
+    parser.add_argument('-c', '--copyright', action='version',
+                        version=__copyright__,
+                        help='show copying policy and exit')
+
+    _ = parser.parse_args()
+
+    ubyte()
+
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main(pathlib.Path(sys.argv[0]).name))
+
+# eof
