@@ -4,9 +4,10 @@
 Usage: ubyte [OPTIONS]
 
 optional arguments:
-  -h, --help       show this help message and exit
-  -v, --version    show version information and exit
-  -c, --copyright  show copying policy and exit
+  -h, --help         show this help message and exit
+  -v, --version      show version information and exit
+  -c, --copyright    show copying policy and exit
+  -i, --iso-8859-15  use ISO-8859-15 rather than Latin-1
 """
 ##############################################################################
 # This program is free software; you can redistribute it and/or modify it    #
@@ -32,7 +33,7 @@ except (ImportError, NameError, Error):
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
 __revision__ = '2016-02-05'
-__version__ = '1.0.2 ({})'.format(__revision__)
+__version__ = '1.1.0 ({})'.format(__revision__)
 __copyright__ = """\
 ubyte {}
 Copyright © 1999-2016 Klaus Alexander Seistrup <klaus@seistrup.dk>
@@ -49,21 +50,24 @@ def leader(idx):
     return '{}{:02X}{}'.format(BOLD, idx, PLAIN)
 
 
-def itoa(i):
-    """Convert an int to the corresponding unicode char"""
-    char = chr(i)
+def itoa(i, latin15=False):
+    """Convert an int to the corresponding unicode/iso-8859-15 char"""
+    if latin15:
+        char = i.to_bytes(1, sys.byteorder).decode('iso-8859-15')
+    else:
+        char = chr(i)
     return char if char.isprintable() else '\N{LIGHT SHADE}'
 
 
-def ubyte():
+def ubyte(latin15=False):
     """Show a fancy character table {0‥255}"""
     print('\t   {}0123456789ABCDEF{}'.format(BOLD, PLAIN) * 2)
     for upper in range(0x00, 0x80, 0x10):
         (lolead, loline) = (leader(upper), [])
         (uplead, upline) = (leader(upper + 0x80), [])
         for lower in range(0x10):
-            loline.append(itoa(upper + lower))
-            upline.append(itoa(upper + lower + 0x80))
+            loline.append(itoa(upper + lower, latin15))
+            upline.append(itoa(upper + lower + 0x80, latin15))
         print('\t{} {}'.format(lolead, ''.join(loline)), end='')
         print('\t{} {}'.format(uplead, ''.join(upline)))
 
@@ -81,10 +85,12 @@ def main(progname='ubyte'):
     parser.add_argument('-c', '--copyright', action='version',
                         version=__copyright__,
                         help='show copying policy and exit')
+    parser.add_argument('-i', '--iso-8859-15', action='store_true',
+                        help='use ISO-8859-15 rather than Latin-1')
 
-    _ = parser.parse_args()
+    args = parser.parse_args()
 
-    ubyte()
+    ubyte(args.iso_8859_15)
 
     return 0
 
