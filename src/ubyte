@@ -32,11 +32,11 @@ except (ImportError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2016-02-05'
+__revision__ = '2017-04-02'
 __version__ = '1.1.0 ({})'.format(__revision__)
 __copyright__ = """\
 ubyte {}
-Copyright © 1999-2016 Klaus Alexander Seistrup <klaus@seistrup.dk>
+Copyright © 1999-2017 Klaus Alexander Seistrup <klaus@seistrup.dk>
 
 This is free software; see the source for copying conditions.  There is no
 warranty; not even for merchantability or fitness for a particular purpose.\
@@ -93,6 +93,7 @@ def main(progname='ubyte'):
     ubyte(args.iso_8859_15)
 
     return 0
+
 
 if __name__ == '__main__':
     sys.exit(main(pathlib.Path(sys.argv[0]).name))
