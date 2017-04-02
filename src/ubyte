@@ -28,7 +28,7 @@ import argparse
 try:
     from locale import (Error, setlocale, LC_ALL)
     _ = setlocale(LC_ALL, '')
-except (ImportError, NameError, Error):
+except (ImportError, ModuleNotFoundError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
